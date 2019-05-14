@@ -20,7 +20,7 @@ public class Client {
     private static final Logger logger = LoggerFactory.getLogger(Client.class);
     private String id;
     private Socket clientSocket;
-    private Thread listenResponseThread;
+    private Thread listenThread;
     private PrintWriter writer;
 
     public void sendMessage(String from, String message) {
@@ -66,7 +66,7 @@ public class Client {
     }
 
     private void startListenResponse() {
-        listenResponseThread = new Thread(() -> {
+        listenThread = new Thread(() -> {
             try {
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 while (true) {
@@ -79,7 +79,7 @@ public class Client {
                 e.printStackTrace();
             }
         });
-        listenResponseThread.setName(id + ":listenResponseThread");
-        listenResponseThread.start();
+        listenThread.setName(id + ":listenResponseThread");
+        listenThread.start();
     }
 }
