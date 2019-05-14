@@ -53,20 +53,16 @@ public class Client {
     }
 
     private void process(String request) {
-        String[] parmas = request.split(" ");
-        try {
-            if (parmas.length < 2) {
-                sendMessage(SERVER, "命令非法");
-                logger.info("id:{}发送非法请求request:{}", id, request);
-                return;
-            }
-            String to = parmas[0];
-            String message = parmas[1];
-            logger.info("id:{}对id:{}说:{}", id, to, message);
-            ContextHolder.getServerContext().sendForward(id, to, message);
-        } catch (IOException e) {
-            logger.error("id:{}处理请求异常message:{}", id, request);
+        String[] params = request.split(" ");
+        if (params.length < 2) {
+            sendMessage(SERVER, "命令非法");
+            logger.info("id:{}发送非法请求request:{}", id, request);
+            return;
         }
+        String to = params[0];
+        String message = params[1];
+        logger.info("id:{}对id:{}说:{}", id, to, message);
+        ContextHolder.getServerContext().sendForward(id, to, message);
     }
 
     private void startListenResponse() {
