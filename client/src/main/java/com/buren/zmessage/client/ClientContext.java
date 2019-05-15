@@ -32,7 +32,7 @@ public class ClientContext {
 
     public void init() throws IOException {
         this.server = new Socket(serverIp, serverPort);
-        this.writer = new PrintWriter(server.getOutputStream());
+        this.writer = new PrintWriter(server.getOutputStream(),true);
         this.scanner = new Scanner(System.in);
         this.reader = new BufferedReader(new InputStreamReader(server.getInputStream()));
         startSystemListenThread();
@@ -79,7 +79,6 @@ public class ClientContext {
             logger.info("命令非法");
             return;
         }
-        writer.write(input);
-        writer.flush();
+        writer.println(input);
     }
 }

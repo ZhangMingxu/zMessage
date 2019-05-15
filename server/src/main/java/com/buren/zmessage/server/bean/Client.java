@@ -27,12 +27,11 @@ public class Client {
     public void sendMessage(String from, String message) {
         String temp = from + ":" + message;
         writer.println(temp);
-        writer.flush();
     }
 
     public void init() throws IOException {
         startListenResponse();
-        this.writer = new PrintWriter(clientSocket.getOutputStream());
+        this.writer = new PrintWriter(clientSocket.getOutputStream(),true);
         sendHello();
         logger.info("初始化客户端id:{}", id);
 
