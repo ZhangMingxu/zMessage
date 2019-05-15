@@ -1,6 +1,7 @@
 package com.buren.zmessage.server.bean;
 
 import com.buren.zmessage.server.ContextHolder;
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,7 +72,7 @@ public class Client {
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 while (true) {
                     String request = in.readLine();
-                    if (request != null) {
+                    if (StringUtils.isNotBlank(request)) {
                         process(request);
                     }
                 }
